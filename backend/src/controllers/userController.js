@@ -78,10 +78,10 @@ export const loginUser = expressAsyncHandler(async (req, res) => {
 
 // Get a user
 export const getUserById = expressAsyncHandler(async (req, res) => {
-  const { id } = req.params; // Get the ID from the route params
+  const { _id } = req.body;
 
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(_id);
     if (user) {
       res.json({
         _id: user._id,
@@ -102,10 +102,12 @@ export const getUserById = expressAsyncHandler(async (req, res) => {
 
 // Update user
 export const updateUser = expressAsyncHandler(async (req, res) => {
-  const { id } = req.params; // Get the ID from params
+  const { _id } = req.user;
+  console.log("User:", req.user); // Log the user object in the protect middleware
+console.log("Updating user:", req.user._id); // Log the user ID in the updateUser function
 
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(_id);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
