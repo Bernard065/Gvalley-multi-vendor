@@ -32,7 +32,9 @@ export const protect = expressAsyncHandler(async (req, res, next) => {
   }
 
   if (!token) {
-    res.status(401).json({ message: "Not authorized, no token" });
+    res
+      .status(401)
+      .json({ message: "Not authorized, no token attached to header" });
   }
 });
 

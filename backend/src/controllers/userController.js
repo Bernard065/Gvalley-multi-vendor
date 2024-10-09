@@ -18,14 +18,11 @@ export const registerUser = expressAsyncHandler(async (req, res) => {
       return; // Stop further execution
     }
 
-    // Hash the password before saving
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     // Create new user
     const user = await User.create({
       name,
       email,
-      password: hashedPassword,
+      password,
     });
 
     if (user) {
@@ -56,7 +53,7 @@ export const loginUser = expressAsyncHandler(async (req, res) => {
     // Check if the user exists
     const user = await User.findOne({ email });
 
-    if (user && (await bcrypt.compare(password, user.password))) {
+    if (user && (await user.comparePassword(password, user.password))) {
       // Respond with user data and token if authentication is successful
       res.json({
         _id: user._id,
@@ -104,7 +101,7 @@ export const getUserById = expressAsyncHandler(async (req, res) => {
 export const updateUser = expressAsyncHandler(async (req, res) => {
   const { _id } = req.user;
   console.log("User:", req.user); // Log the user object in the protect middleware
-console.log("Updating user:", req.user._id); // Log the user ID in the updateUser function
+  console.log("Updating user:", req.user._id); // Log the user ID in the updateUser function
 
   try {
     const user = await User.findById(_id);
