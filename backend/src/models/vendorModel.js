@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import slugify from "slugify";
 
 const subscriptionSchema = new mongoose.Schema(
   {
@@ -35,11 +36,19 @@ const vendorSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    slug: {
+      type: String,
+      unique: true,
+    },
     storeDescription: {
       type: String,
       required: true,
     },
     storeImage: {
+      type: String,
+      required: true,
+    },
+    storeBanner: {
       type: String,
       required: true,
     },
@@ -57,5 +66,14 @@ const vendorSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+// Pre-save hook to generate slug from storeName
+vendorSchema.pre("save", function (next) {
+  // Check if storeName is defined
+  if (this.storeName) {
+    this.slug = slugify(this.storeName, { lower: true }); // Generate slug
+  }
+  next();
+});
 
 export const Vendor = mongoose.model("Vendor", vendorSchema);
