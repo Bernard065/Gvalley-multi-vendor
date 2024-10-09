@@ -28,7 +28,7 @@ app.use(cors());
 
 // Api Routes
 app.use("/api/user", userRouter);
-app.use("/api/vendor", vendorRouter);
+app.use("/api", vendorRouter);
 
 // Error Handler Middlewares
 app.use(errorHandler);
