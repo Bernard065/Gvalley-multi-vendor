@@ -10,6 +10,7 @@ import {
 } from "./src/middlewares/errorHandler.js";
 import userRouter from "./src/routes/userRoutes.js";
 import vendorRouter from "./src/routes/vendorRoutes.js";
+import productRouter from "./src/routes/productRoute.js";
 
 // Load environment Variables from .env file
 dotenv.config();
@@ -29,6 +30,7 @@ app.use(cors());
 // Api Routes
 app.use("/api/user", userRouter);
 app.use("/api", vendorRouter);
+app.use("/api", productRouter);
 
 // Error Handler Middlewares
 app.use(errorHandler);
