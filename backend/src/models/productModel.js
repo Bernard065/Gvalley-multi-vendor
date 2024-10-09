@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import slugify from "slugify";
 
 const productVariationSchema = new mongoose.Schema({
   color: {
@@ -25,6 +26,10 @@ const productSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
+    },
+    slug: {
+      type: String,
+      unique: true,
     },
     description: {
       type: String,
@@ -67,5 +72,13 @@ const productSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+productSchema.pre("save", function (next) {
+  // Check if storeName is defined
+  if (this.name) {
+    this.slug = slugify(this.name, { lower: true }); // Generate slug
+  }
+  next();
+});
 
 export const Product = mongoose.model("Product", productSchema);
