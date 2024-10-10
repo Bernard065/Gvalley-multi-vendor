@@ -2,9 +2,9 @@ import { Product } from "../models/productModel.js";
 import expressAsyncHandler from "express-async-handler";
 
 // Create product
-export const createProduct = expressAsyncHandler(async (res, req) => {
+export const createProduct = expressAsyncHandler(async (req, res) => {
   try {
-    const newProduct = await Product(req.body);
+    const newProduct = await Product.create(req.body);
 
     res.status(201).json({ status: true, data: newProduct });
   } catch (error) {
@@ -14,7 +14,7 @@ export const createProduct = expressAsyncHandler(async (res, req) => {
 });
 
 // Get all products
-export const getAllProducts = expressAsyncHandler(async (res, req) => {
+export const getAllProducts = expressAsyncHandler(async (req, res) => {
   try {
     const products = await Product.find().populate({
       path: "vendor",
@@ -29,7 +29,7 @@ export const getAllProducts = expressAsyncHandler(async (res, req) => {
 });
 
 // Get product by slug
-export const getProductBySlug = expressAsyncHandler(async (res, req) => {
+export const getProductBySlug = expressAsyncHandler(async (req, res) => {
   try {
     const { slug } = req.params;
 

@@ -14,6 +14,7 @@ import productRouter from "./src/routes/productRoute.js";
 import brandRouter from "./src/routes/brandRoute.js";
 import categoryRouter from "./src/routes/categoryRoute.js";
 import subCategoryRouter from "./src/routes/subCategoryRoute.js";
+import wishlistRouter from "./src/routes/wishlistRoute.js";
 
 // Load environment Variables from .env file
 dotenv.config();
@@ -32,11 +33,12 @@ app.use(cors());
 
 // Api Routes
 app.use("/api/user", userRouter);
-app.use("/api", vendorRouter);
-app.use("/api", productRouter);
+app.use("/api/vendors", vendorRouter);
+app.use("/api/products", productRouter);
 app.use("/api", brandRouter);
 app.use("/api/categories", categoryRouter);
 app.use("/api/sub-categories", subCategoryRouter);
+app.use("/api/wishlists", wishlistRouter);
 
 // Error Handler Middlewares
 app.use(errorHandler);

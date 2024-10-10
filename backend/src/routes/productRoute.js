@@ -11,10 +11,10 @@ import vendorRouter from "./vendorRoutes.js";
 
 const productRouter = express.Router();
 
-vendorRouter.post("/product", protect, createProduct);
-vendorRouter.get("/products", getAllProducts);
-vendorRouter.get("/product/:slug", getProductBySlug);
-vendorRouter.put("/product/:id", protect, updateProduct);
-vendorRouter.delete("/product/:id", protect, deleteProduct);
+productRouter.post("/product", protect, createProduct);
+productRouter.get("/", getAllProducts);
+productRouter.get("/product/:slug", getProductBySlug);
+productRouter.put("/product/:id", protect, updateProduct);
+productRouter.delete("/product/:id", protect, deleteProduct);
 
 export default productRouter;
