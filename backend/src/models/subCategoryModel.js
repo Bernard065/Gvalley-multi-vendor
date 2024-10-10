@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import slugify from "slugify";
 
-const categorySchema = new mongoose.Schema(
+const subCategorySchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -13,21 +13,17 @@ const categorySchema = new mongoose.Schema(
       unique: true,
     },
     description: String,
-    subCategory: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "SubCategory",
-      },
-    ],
   },
   { timestamps: true }
 );
 
-categorySchema.pre("save", function (next) {
+// Pre-save hook to generate slug for SubCategory
+subCategorySchema.pre("save", function (next) {
+  // Generate slug only if the name has changed or if slug is not set
   if (this.isModified("name") || !this.slug) {
     this.slug = slugify(this.name, { lower: true, strict: true });
   }
   next();
 });
 
-export const Category = mongoose.model("Category", categorySchema);
+export const SubCategory = mongoose.model("SubCategory", subCategorySchema);

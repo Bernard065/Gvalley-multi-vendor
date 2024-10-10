@@ -12,6 +12,8 @@ import userRouter from "./src/routes/userRoutes.js";
 import vendorRouter from "./src/routes/vendorRoutes.js";
 import productRouter from "./src/routes/productRoute.js";
 import brandRouter from "./src/routes/brandRoute.js";
+import categoryRouter from "./src/routes/categoryRoute.js";
+import subCategoryRouter from "./src/routes/subCategoryRoute.js";
 
 // Load environment Variables from .env file
 dotenv.config();
@@ -33,6 +35,8 @@ app.use("/api/user", userRouter);
 app.use("/api", vendorRouter);
 app.use("/api", productRouter);
 app.use("/api", brandRouter);
+app.use("/api/categories", categoryRouter);
+app.use("/api/sub-categories", subCategoryRouter);
 
 // Error Handler Middlewares
 app.use(errorHandler);
