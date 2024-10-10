@@ -11,6 +11,7 @@ import {
 import userRouter from "./src/routes/userRoutes.js";
 import vendorRouter from "./src/routes/vendorRoutes.js";
 import productRouter from "./src/routes/productRoute.js";
+import brandRouter from "./src/routes/brandRoute.js";
 
 // Load environment Variables from .env file
 dotenv.config();
@@ -31,6 +32,7 @@ app.use(cors());
 app.use("/api/user", userRouter);
 app.use("/api", vendorRouter);
 app.use("/api", productRouter);
+app.use("/api", brandRouter);
 
 // Error Handler Middlewares
 app.use(errorHandler);
